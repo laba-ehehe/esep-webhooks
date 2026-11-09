@@ -16,8 +16,29 @@ public class Function
     /// <param name="input">The event for the Lambda function handler to process.</param>
     /// <param name="context">The ILambdaContext that provides methods for logging and describing the Lambda environment.</param>
     /// <returns></returns>
-    public string FunctionHandler(string input, ILambdaContext context)
+
+public string FunctionHandler(object input, ILambdaContext context)
     {
-        return input.ToUpper();
+        var issueEvent = Newtonsoft.Json.Linq.JObject.Parse(input.ToString()!);
+        string? issueUrl = (string?)issueEvent["issue"]?["html_url"];
+
+        if (string.IsNullOrEmpty(issueUrl))
+            return "Ignored event without an issue link";
+
+        string slackUrl = Environment.GetEnvironmentVariable("SLACK_URL")
+            ?? throw new InvalidOperationException("SLACK_URL is missing");
+
+        string payload = JsonConvert.SerializeObject(new
+        {
+            text = $"Issue Created: {issueUrl}"
+        });
+
+        using var client = new HttpClient();
+        using var request = new HttpRequestMessage(HttpMethod.Post, slackUrl);
+        request.Content = new StringContent(payload, Encoding.UTF8, "application/json");
+
+        using var response = client.Send(request);
+        response.EnsureSuccessStatusCode();
+        return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
     }
 }
