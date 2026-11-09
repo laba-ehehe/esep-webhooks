@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "NzEdRtid1os=",
+  "success": true,
+  "projectFilePath": "/Users/laba/Documents/oof/CIS4930 (swe)/esep-webhooks/EsepWebhook/EsepWebhook.csproj",
+  "expectedPackageFiles": [
+    "/Users/laba/.nuget/packages/amazon.lambda.core/2.8.1/amazon.lambda.core.2.8.1.nupkg.sha512",
+    "/Users/laba/.nuget/packages/amazon.lambda.serialization.systemtextjson/2.4.5/amazon.lambda.serialization.systemtextjson.2.4.5.nupkg.sha512",
+    "/Users/laba/.nuget/packages/newtonsoft.json/13.0.4/newtonsoft.json.13.0.4.nupkg.sha512",
+    "/Users/laba/.nuget/packages/microsoft.netcore.app.crossgen2.osx-arm64/10.0.14/microsoft.netcore.app.crossgen2.osx-arm64.10.0.14.nupkg.sha512"
+  ],
+  "logs": []
+}
